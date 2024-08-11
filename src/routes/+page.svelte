@@ -28,6 +28,7 @@
             border: 2px dashed #ccc;
             padding: 20px;
             border-radius: 10px;
+            width: 80%;
         }
 
         input[type="file"] {
@@ -112,6 +113,7 @@
       if (file) {
         fileName = file.name;
         fileInput.files = event.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
       }
     }
   
