@@ -89,46 +89,47 @@
     let fileName = '';
 
     function handleDownload() {
-    if (fileInput && fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const url = URL.createObjectURL(file);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = file.name.normalize("NFC");
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
+        if (fileInput && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const url = URL.createObjectURL(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name.normalize("NFC");
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
     }
 
     function handleFileChange(event) {
-    const file = event.target.files[0];
-    if (file) {
-        fileName = file.name;
-    }
+        const file = event.target.files[0];
+        if (file) {
+            fileName = file.name;
+        }
     }
 
     function handleDrop(event) {
-    event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    if (file) {
-        fileName = file.name;
-        fileInput.files = event.dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'));
-    }
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        if (file) {
+            fileName = file.name;
+            fileInput.files = event.dataTransfer.files;
+            fileInput.dispatchEvent(new Event('change'));
+        }
     }
 
     function handleDragOver(event) {
-    event.preventDefault();
+        event.preventDefault();
+        event.dataTransfer.dropEffect = 'copy';
     }
 
     onMount(() => {
-    fileInput = document.getElementById('fileInput');
-    const dropArea = document.querySelector('.file-input-wrapper');
-    dropArea.addEventListener('drop', handleDrop);
-    dropArea.addEventListener('dragover', handleDragOver);
-    fileInput.addEventListener('change', handleFileChange);
+        const fileInput = document.getElementById('fileInput');
+        const dropArea = document.querySelector('.file-input-wrapper');
+        dropArea.addEventListener('dragover', handleDragOver);
+        dropArea.addEventListener('drop', handleDrop);
+        fileInput.addEventListener('change', handleFileChange);
     });
 </script>
 
