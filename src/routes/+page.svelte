@@ -83,54 +83,54 @@
         }
     </style>
 
-    <script>
-        import { onMount } from 'svelte';
-        let fileName = '';
-    
-        function handleDownload() {
-        if (fileInput && fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            const url = URL.createObjectURL(file);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = file.name.normalize("NFC");
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-        }
-    
-        function handleFileChange(event) {
-        const file = event.target.files[0];
-        if (file) {
-            fileName = file.name;
-        }
-        }
-    
-        function handleDrop(event) {
-        event.preventDefault();
-        const file = event.dataTransfer.files[0];
-        if (file) {
-            fileName = file.name;
-            fileInput.files = event.dataTransfer.files;
-            fileInput.dispatchEvent(new Event('change'));
-        }
-        }
-    
-        function handleDragOver(event) {
-        event.preventDefault();
-        }
-    
-        onMount(() => {
-        fileInput = document.getElementById('fileInput');
-        const dropArea = document.querySelector('.file-input-wrapper');
-        dropArea.addEventListener('drop', handleDrop);
-        dropArea.addEventListener('dragover', handleDragOver);
-        fileInput.addEventListener('change', handleFileChange);
-        });
-    </script>
 </svelte:head>
+<script>
+    import { onMount } from 'svelte';
+    let fileName = '';
+
+    function handleDownload() {
+    if (fileInput && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const url = URL.createObjectURL(file);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = file.name.normalize("NFC");
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    }
+
+    function handleFileChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+        fileName = file.name;
+    }
+    }
+
+    function handleDrop(event) {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+        fileName = file.name;
+        fileInput.files = event.dataTransfer.files;
+        fileInput.dispatchEvent(new Event('change'));
+    }
+    }
+
+    function handleDragOver(event) {
+    event.preventDefault();
+    }
+
+    onMount(() => {
+    fileInput = document.getElementById('fileInput');
+    const dropArea = document.querySelector('.file-input-wrapper');
+    dropArea.addEventListener('drop', handleDrop);
+    dropArea.addEventListener('dragover', handleDragOver);
+    fileInput.addEventListener('change', handleFileChange);
+    });
+</script>
 
 <h1>맥-윈도우 파일 이름 깨짐 수정</h1>
 <div class="description">
