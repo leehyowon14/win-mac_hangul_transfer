@@ -14,10 +14,12 @@
             background-color: #ecf0f3;
             overflow-y: scroll;
         }
+
         h1 {
             text-align: center;
             color: #000000;
         }
+
         .description {
             text-align: center;
         }
@@ -80,54 +82,55 @@
             background-color: #1f1140;
         }
     </style>
-</svelte:head>
 
-<script>
-    import { onMount } from 'svelte';
-    let fileName = '';
-  
-    function handleDownload() {
-      if (fileInput && fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        const url = URL.createObjectURL(file);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = file.name.normalize("NFC");
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }
-    }
-  
-    function handleFileChange(event) {
-      const file = event.target.files[0];
-      if (file) {
-        fileName = file.name;
-      }
-    }
-  
-    function handleDrop(event) {
-      event.preventDefault();
-      const file = event.dataTransfer.files[0];
-      if (file) {
-        fileName = file.name;
-        fileInput.files = event.dataTransfer.files;
-        fileInput.dispatchEvent(new Event('change'));
-      }
-    }
-  
-    function handleDragOver(event) {
-      event.preventDefault();
-    }
-  
-    onMount(() => {
-      fileInput = document.getElementById('fileInput');
-      const dropArea = document.querySelector('.file-input-wrapper');
-      dropArea.addEventListener('drop', handleDrop);
-      dropArea.addEventListener('dragover', handleDragOver);
-    });
-</script>
+    <script>
+        import { onMount } from 'svelte';
+        let fileName = '';
+    
+        function handleDownload() {
+        if (fileInput && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const url = URL.createObjectURL(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name.normalize("NFC");
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        }
+    
+        function handleFileChange(event) {
+        const file = event.target.files[0];
+        if (file) {
+            fileName = file.name;
+        }
+        }
+    
+        function handleDrop(event) {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        if (file) {
+            fileName = file.name;
+            fileInput.files = event.dataTransfer.files;
+            fileInput.dispatchEvent(new Event('change'));
+        }
+        }
+    
+        function handleDragOver(event) {
+        event.preventDefault();
+        }
+    
+        onMount(() => {
+        fileInput = document.getElementById('fileInput');
+        const dropArea = document.querySelector('.file-input-wrapper');
+        dropArea.addEventListener('drop', handleDrop);
+        dropArea.addEventListener('dragover', handleDragOver);
+        fileInput.addEventListener('change', handleFileChange);
+        });
+    </script>
+</svelte:head>
 
 <h1>맥-윈도우 파일 이름 깨짐 수정</h1>
 <div class="description">
@@ -137,7 +140,7 @@
 <div class="file-input-wrapper">
     <label for="fileInput" class="file-label">여기를 클릭하여 파일을 선택하시거나<br>
     여기로 파일을 드래그 앤 드롭 해주세요.</label>
-    <input type="file" id="fileInput" on:change={handleFileChange}/>
+    <input type="file" id="fileInput"/>
     {#if fileName}
         <div class="file-name">{fileName}</div>
     {/if}
