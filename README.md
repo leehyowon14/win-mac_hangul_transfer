@@ -1,38 +1,11 @@
-# create-svelte
+# 맥-윈도우 파일 이름 깨짐 수정 웹사이트
+Mac과 Windows의 한글 인코딩 방식의 차이때문에 맥에서 작업한 파일을 윈도우로 옮길 시, 한글 자모가 분리되어 보이는 문제가 발생합니다.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+이 웹사이트는 이러한 문제를 해결하기 위해 개발되었습니다.
 
-## Creating a project
+파일을 선택한 후, 다운로드 버튼을 누름으로써 문제를 해결할 수 있습니다!
 
-If you're seeing this, you've probably already done this step. Congrats!
+### 주의사항
+맥 환경에서 해당 사이트를 이용 후, 윈도우 환경으로 파일을 옮기더라도 동일한 현상이 발생합니다.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+반드시 윈도우 환경에서만 사용하여 주세요.
